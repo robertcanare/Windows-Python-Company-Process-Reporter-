@@ -1,4 +1,6 @@
-# This is the Application disabler reporter!
+# Check Work Time Process on office PC
+# January 27, 2020
+# By Robert John Canare
 
 import os
 import smtplib
