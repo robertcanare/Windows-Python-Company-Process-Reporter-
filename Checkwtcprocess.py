@@ -19,35 +19,28 @@ password = 'password'
 
 # Email receiver
 to_email = "email@gmail.com"
-
 to_email_1 = "email@gmail.com"
-
-# Get the current username
-current_user = getpass.getuser()
 
 # Get the timestamp
 datetime.now(tz=None)
 date = datetime.now()
 
-# Get the hostname
-hostname = socket.gethostname()
-
 # Get the process
-process_name = 'file.exe'
+process_name = 'wtc.exe'
 call = str(os.popen(f"tasklist | findstr {process_name}").read())
 count_line = call.count('\n')
+
 # Sleep for a minute
 time.sleep(120)
 
-if count_line >= 1:
-    null = 'null'
-else:
+
+def send_email():
     mail_content = f'''
-As of {date} Application Client Application is not running on user {current_user} on computer {hostname}.
+    As of {date} WTC Client Application is not running on user {getpass.getuser()} on computer {socket.gethostname()}.
 
-[THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL]'''
+    [THIS IS AN AUTOMATED MESSAGE - PLEASE DO NOT REPLY DIRECTLY TO THIS EMAIL]'''
 
-message = MIMEMultipart()
+    message = MIMEMultipart()
     message['From'] = email
     message['To'] = to_email
     message['Subject'] = f'Application Logs for the user {current_user}'
@@ -60,3 +53,11 @@ message = MIMEMultipart()
     session.sendmail(email, to_email, text)
     session.sendmail(email, to_email_1, text)
     session.quit()
+
+
+while count_line >= 1:
+    print("running")
+    break
+else:
+    print("Sending an Email...")
+    send_email()
